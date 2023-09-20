@@ -1,4 +1,5 @@
 #include "ShiftIn.h"
+#include <SPI.h>
 
 ShiftIn<8> shift; //Колличество микросхем 74hc165 
 
