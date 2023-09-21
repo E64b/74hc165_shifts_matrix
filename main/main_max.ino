@@ -1,4 +1,4 @@
-/* =================Unlimit Shifts================= */
+/* =================Unlimited Shifts================= */
 /* ==U can add 1 or more Shifts and read val in serial if val changed== */
 
 /* ==Number of chips 74hc165== */
@@ -22,6 +22,7 @@
 bool update; //Flag for updating
 uint8_t CurrentShift; //Current register
 uint8_t Shift[shifts] = {}; //Array for register
+uint8_t OldShift[shifts]= {}; /Old Array
 
 void setup(){
 	Serial.begin(115200);
@@ -32,6 +33,7 @@ void setup(){
 	pinMode(clockPin, OUTPUT);
 }
 
+/* ==Reading the data stream== */
 void read()
 {
 	digitalWrite(clockEnablePin, HIGH);
@@ -40,9 +42,9 @@ void read()
 	digitalWrite(ploadPin, HIGH);
 	digitalWrite(clockEnablePin, LOW);
 
-	for (uint32_t m = 0; m < shifts; m++)
+	for (int m = 0; m < shifts; m++)
 	{
-		for (uint8_t i = 0; i < data; i++)
+		for (int i = 0; i < data; i++)
 		{
 			ShiftType value = digitalRead(dataPin);
 			result |= (value << ((data - 1) - i));
@@ -52,6 +54,19 @@ void read()
 			return result;
 		}
 		Shift[m] = result;
+		OldShift[m] = Shift[m];
+	}
+}
+
+/* ==Checking if the array has changed== */
+void checkData()
+{
+	for (int i = 0; i < shifts; i++)
+	{
+		if (OldShift[i] != Shift[i])
+		{
+			update() == true;
+		}
 	}
 }
 
@@ -73,6 +88,7 @@ void displayValues()
 void loop()
 {
 	read();	//Read data
+	checkData(); //Checking data for changes
 	displayValues(); //Send to serial	
-	delay(1);
+	delay(10);
 }
