@@ -1,31 +1,3 @@
-/* ShiftIn.h - Arduino library that reads in values from an 8 bit shift register (74HC165).
- * You can daisy-chain several shift register in order to read in up to 64 buttons by only using 4 Arduino pins.
- *
- * Created by Henrik Heine, July 24, 2016
- *
-LICENSE
-The MIT License (MIT)
-
-Copyright (c) 2016 Henrik
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
- */
 #ifndef ShiftIn_h
 #define ShiftIn_h
 
@@ -118,5 +90,17 @@ class ShiftIn<3> : public _ShiftIn<3, uint32_t> {};
 // four shift registers (32 bit state)
 template<>
 class ShiftIn<4> : public _ShiftIn<4, uint32_t> {};
+// five shift registers (64 bit state)
+template<>
+class ShiftIn<5> : public _ShiftIn<5, uint64_t> {};
+// six shift registers (64 bit state)
+template<>
+class ShiftIn<6> : public _ShiftIn<6, uint64_t>{};
+// seven shift registers (64 bit state)
+template<>
+class ShiftIn<7> : public _ShiftIn<7, uint64_t>{};
+// eight shift registers (64 bit state)
+template<>
+class ShiftIn<8> : public _ShiftIn<8, uint64_t>{};
 
 #endif
