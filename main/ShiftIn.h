@@ -48,7 +48,8 @@ public:
 	inline boolean released(int id) { return last(id) && !state(id); }
 	
 	// read in data from shift register and return the new value
-	ShiftType read() {
+	ShiftType read() 
+	{
 		lastState = currentState;
 		ShiftType result = 0;
 
@@ -58,7 +59,8 @@ public:
 		digitalWrite(ploadPin, HIGH);
 		digitalWrite(clockEnablePin, LOW);
 
-		for(uint16_t i = 0; i < dataWidth; i++) {
+		for(uint16_t i = 0; i < dataWidth; i++)
+		{
 			ShiftType value = digitalRead(dataPin);
 			result |= (value << ((dataWidth-1) - i));
 			digitalWrite(clockPin, HIGH);
@@ -70,7 +72,8 @@ public:
 	}
 	
 	// same as read, but it returns whether something has changed or not
-	boolean update() {
+	boolean update() 
+	{
 		return read() != lastState;
 	}
 };

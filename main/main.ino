@@ -14,13 +14,18 @@ void displayValues()
 {
 	// Вывод всех битов, 1 микросхема 8 бит
 	for(int i = 0; i < shift.getDataWidth(); i++)
-		Serial.print( shift.state(i) ); // Выводим конкретную кнопку
+	{
+	Serial.print( shift.state(i) ); // Выводим конкретную кнопку
 	Serial.println();
+	}
 }
 
 void loop() 
-{
-	if(shift.update()) // Читаем все кнопки, выводим если изменились
-		displayValues();
+{    
+/*Читаем все кнопки, выводим если изменились*/
+	if(shift.update()) 
+	{
+	displayValues();
+	}
 	delay(1);
 }
