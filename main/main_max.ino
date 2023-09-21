@@ -1,28 +1,31 @@
-#include <SPI.h>
+/* =================Unlimit Shifts================= */
+/* ==U can add 1 or more Shifts and read val in serial if val changed== */
 
-/*Колличество микросхем 74hc165*/
+/* ==Number of chips 74hc165== */
 #define shifts 54
 
-/*Задаем pins*/
+/* ==pins== */
 #define ploadPin 8
 #define clockEnablePin 9
 #define dataPin 11
 #define clockPin 12
 
-/*Длинна данных*/
+/* == Data length of a single chip == */
 #define data 8
 
-/*Настройки импульсов*/
+/* ==Total length of data== */
+#define all_data (data * shifts)
+
+/* ==Pulse length== */
 #define pulseWidth 5
 
-bool update; //Флаг на обновление
-uint8_t CurrentShift; //Текущий регистр
-uint8_t Shift[shifts] = {}; //Массив для регистра
+bool update; //Flag for updating
+uint8_t CurrentShift; //Current register
+uint8_t Shift[shifts] = {}; //Array for register
 
 void setup(){
 	Serial.begin(115200);
-	while (!Serial){
-	}
+	while (!Serial){	}
 	pinMode(ploadPin, OUTPUT);
 	pinMode(clockEnablePin, OUTPUT);
 	pinMode(dataPin, INPUT);
@@ -31,33 +34,35 @@ void setup(){
 
 void read()
 {
-	ShiftType result = 0;
 	digitalWrite(clockEnablePin, HIGH);
 	digitalWrite(ploadPin, LOW);
 	delayMicroseconds(pulseWidth);
 	digitalWrite(ploadPin, HIGH);
 	digitalWrite(clockEnablePin, LOW);
 
-	for (uint8_t i = 0; i < data; i++)
+	for (uint32_t m = 0; m < shifts; m++)
 	{
-		ShiftType value = digitalRead(dataPin);
-		result |= (value << ((data - 1) - i));
-		digitalWrite(clockPin, HIGH);
-		delayMicroseconds(pulseWidth);
-		digitalWrite(clockPin, LOW);
+		for (uint8_t i = 0; i < data; i++)
+		{
+			ShiftType value = digitalRead(dataPin);
+			result |= (value << ((data - 1) - i));
+			digitalWrite(clockPin, HIGH);
+			delayMicroseconds(pulseWidth);
+			digitalWrite(clockPin, LOW);
+			return result;
+		}
+		Shift[m] = result;
 	}
-	currentState = result;
-	return result;
 }
 
 void displayValues()
 {
-	/*Выводим массив если изменился*/
+	/*If val edit, send array*/
 	if (update() == true)
 	{
 		for (int i = 0; i < shifts; i++)
 		{
-		Serial.printl(Shift[i], HEX); // Выводим конкретную кнопку
+		Serial.printl(Shift[i], HEX); //Send current val HEX
 		Serial.print(' ');
 		}
 		Serial.println();
@@ -67,7 +72,7 @@ void displayValues()
 
 void loop()
 {
-	read();	
-	displayValues();		
+	read();	//Read data
+	displayValues(); //Send to serial	
 	delay(1);
 }
