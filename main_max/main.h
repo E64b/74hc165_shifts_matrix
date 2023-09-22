@@ -1,9 +1,10 @@
 #pragma once
+#pragma pack(1, push)
 
 #include <Arduino.h>
 #include <stdio.h>
 /* ==Number of chips 74hc165== */
-#define shifts 54
+#define SHIFTS 54
 
 /* ==pins== */
 #define ploadPin 8
@@ -21,8 +22,8 @@
 #define pulseWidth 5
 
 extern bool update; //Flag for updating
-extern uint8_t Shift[shifts]; //Array for register
-extern uint8_t OldShift[shifts]; //Old Array
+extern uint8_t SHIFT[SHIFTS]; //Array for register
+extern uint8_t OLD_SHIFT[SHIFTS]; //Old Array
 
 void read();
 void checkData();

@@ -2,7 +2,7 @@
 /* ==Reading the data stream== */
 void read()
 {
-	for (int m = 0; m < shifts; m++)
+	for (int m = 0; m < SHIFTS; m++)
 	{
 		uint8_t CurrentShift = 0;
 		//TODO add a check for the arrival of not the entire message
@@ -21,17 +21,17 @@ void read()
 			delayMicroseconds(pulseWidth);
 			digitalWrite(clockPin, LOW);
 		}
-		OldShift[m] = Shift[m];
-		Shift[m] = CurrentShift;
+		OLD_SHIFT[m] = SHIFT[m];
+		SHIFT[m] = CurrentShift;
 	}
 }
 
 /* ==Checking if the array has changed== */
 void checkData()
 {
-	for (int i = 0; i < shifts; i++)
+	for (int i = 0; i < SHIFTS; i++)
 	{
-		if (OldShift[i] != Shift[i])
+		if (OLD_SHIFT[i] != SHIFT[i])
 		{
 			update = true;
 			break;
@@ -44,9 +44,9 @@ void displayValues()
 {
 	if (update)
 	{
-		for (int i = 0; i < shifts; i++)
+		for (int i = 0; i < SHIFTS; i++)
 		{
-			Serial.println(Shift[i], HEX); //Send current val HEX
+			Serial.println(SHIFT[i], HEX); //Send current val HEX
 			Serial.print(' ');
 		}
 		Serial.println();
