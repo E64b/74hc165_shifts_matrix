@@ -40,7 +40,6 @@
 #define pulseWidth 5
 
 bool update; //Flag for updating
-uint8_t CurrentShift; //Current register
 uint8_t Shift[shifts] = {}; //Array for register
 uint8_t OldShift[shifts]= {}; //Old Array
 
@@ -56,7 +55,7 @@ void setup(){
 /* ==Reading the data stream== */
 void read(){
 	for (int m = 0; m < shifts; m++){
-		uint8_t result = 0;
+		uint8_t CurrentShift = 0;
 
 		digitalWrite(clockEnablePin, HIGH);
 		digitalWrite(ploadPin, LOW);
@@ -65,14 +64,14 @@ void read(){
 		digitalWrite(clockEnablePin, LOW);
 
 		for (int i = 0; i < data; i++){
-			uint8_t value = digitalRead(dataPin); // ShiftType нафиг тут не нужен - фигачишь обычными uint8_t и ебись оно все конем //DONE
-			result |= (value << ((data - 1) - i));
+			uint8_t value = digitalRead(dataPin);
+			CurrentShift |= (value << ((data - 1) - i));
 			digitalWrite(clockPin, HIGH);
 			delayMicroseconds(pulseWidth);
 			digitalWrite(clockPin, LOW);
-		}
-		Shift[m] = result;
-		OldShift[m] = Shift[m]; // <-- эмммм... Те сперва кладешь новое значение в буфер, а потом пытаешься его переложить еще и как старое? А зачем? Может ты сперва хотел бы сохранить текущее значение, а потом его обновить?
+		}		
+		OldShift[m] = Shift[m];
+		Shift[m] = CurrentShift;
 	}
 }
 
@@ -86,7 +85,7 @@ void checkData(){
 	}
 }
 
-/*If val edit, send array*/
+/* ==If val edit, send array== */
 void displayValues(){	
 	if (update){
 		for (int i = 0; i < shifts; i++){
