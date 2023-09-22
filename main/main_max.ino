@@ -65,7 +65,7 @@ void read(){
 		digitalWrite(clockEnablePin, LOW);
 
 		for (int i = 0; i < data; i++){
-			value = digitalRead(dataPin); // ShiftType нафиг тут не нужен - фигачишь обычными uint8_t и ебись оно все конем //DONE
+			uint8_t value = digitalRead(dataPin); // ShiftType нафиг тут не нужен - фигачишь обычными uint8_t и ебись оно все конем //DONE
 			result |= (value << ((data - 1) - i));
 			digitalWrite(clockPin, HIGH);
 			delayMicroseconds(pulseWidth);
