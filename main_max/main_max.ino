@@ -2,20 +2,19 @@
 /* ==U can add 1 or more Shifts and read val in serial if val changed== */
 #include "main.h"
 
-void setup()
-{
+void setup(){
 	Serial.begin(115200);
-	while (!Serial){    }
+	while (!Serial){ }
+
 	pinMode(ploadPin, OUTPUT);
 	pinMode(clockEnablePin, OUTPUT);
 	pinMode(dataPin, INPUT);
 	pinMode(clockPin, OUTPUT);
 }
 
-void loop()
-{
+void loop(){
 	read();	//Read data
 	checkData(); //Checking data for changes
 	displayValues(); //Send to serial	
-	delay(10);
+	delay(1);
 }

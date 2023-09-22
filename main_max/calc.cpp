@@ -1,23 +1,20 @@
 #include "main.h"
+
 uint8_t SHIFT[SHIFTS];
 uint8_t OLD_SHIFT[SHIFTS];
 bool update;
+
 /* ==Reading the data stream== */
-void read()
-{
-	for (uint16_t m = 0; m < SHIFTS; m++)
-	{
+void read(){
+	for (uint8_t m = 0; m < SHIFTS; m++){
 		uint8_t CurrentShift = 0;
-		//TODO add a check for the arrival of not the entire message
 		digitalWrite(clockEnablePin, HIGH);
 		digitalWrite(ploadPin, LOW);
 		delayMicroseconds(pulseWidth);
 		digitalWrite(ploadPin, HIGH);
 		digitalWrite(clockEnablePin, LOW);
 
-		for (uint16_t i = 0; i < SINGLE_CHIP_DATA_LENGTH; i++)
-		{
-			//TODO add a bit skip check
+		for (uint8_t i = 0; i < SINGLE_CHIP_DATA_LENGTH; i++){
 			uint8_t value = digitalRead(dataPin);
 			CurrentShift |= (value << ((SINGLE_CHIP_DATA_LENGTH - 1) - i));
 			digitalWrite(clockPin, HIGH);
@@ -30,12 +27,9 @@ void read()
 }
 
 /* ==Checking if the array has changed== */
-void checkData()
-{
-	for (int i = 0; i < SHIFTS; i++)
-	{
-		if (OLD_SHIFT[i] != SHIFT[i])
-		{
+void checkData(){
+	for (uint8_t i = 0; i < SHIFTS; i++){
+		if (OLD_SHIFT[i] != SHIFT[i]){
 			update = true;
 			break;
 		}
@@ -43,12 +37,9 @@ void checkData()
 }
 
 /* ==If val edit, send array== */
-void displayValues()
-{
-	if (update)
-	{
-		for (int i = 0; i < SHIFTS; i++)
-		{
+void displayValues(){
+	if (update){
+		for (uint8_t i = 0; i < SHIFTS; i++){
 			Serial.println(SHIFT[i], HEX); //Send current val HEX
 			Serial.print(' ');
 		}
