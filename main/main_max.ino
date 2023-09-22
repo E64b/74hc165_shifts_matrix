@@ -43,7 +43,7 @@ void read(){
 		digitalWrite(ploadPin, HIGH);
 		digitalWrite(clockEnablePin, LOW);
 
-		for (int i = 0; i < data; i++){
+		for (int i = 0; i < SINGLE_CHIP_DATA_LENGTH; i++){
 			//TODO добавить проверку получения < 8 бит
 			uint8_t value = digitalRead(dataPin);
 			CurrentShift |= (value << ((data - 1) - i));
