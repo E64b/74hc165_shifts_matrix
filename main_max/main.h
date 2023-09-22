@@ -1,4 +1,7 @@
+#pragma once
+
 #include <Arduino.h>
+#include <stdio.h>
 /* ==Number of chips 74hc165== */
 #define shifts 54
 
@@ -24,3 +27,5 @@ extern uint8_t OldShift[shifts]; //Old Array
 void read();
 void checkData();
 void displayValues();
+
+#pragma pack(pop)
