@@ -55,24 +55,25 @@ void setup(){
 
 /* ==Reading the data stream== */
 void read(){
-	digitalWrite(clockEnablePin, HIGH);
-	digitalWrite(ploadPin, LOW);
-	delayMicroseconds(pulseWidth);
-	digitalWrite(ploadPin, HIGH);
-	digitalWrite(clockEnablePin, LOW);
+	for (int m = 0; m < shifts; m++){
 
-	for (int m = 0; m < shifts; m++)	{
-		uint8_t bit = 0; // <-- нужно определить переменную типа uint8_t тут со значением 0 //DONE
+		lastState = currentState;
+		uint8_t result = 0;
 
-		for (int i = 0; i < data; i++)
-		{
-			bit = digitalRead(dataPin); // ShiftType нафиг тут не нужен - фигачишь обычными uint8_t и ебись оно все конем //DONE
-			result |= (bit << ((data - 1) - i));
+		digitalWrite(clockEnablePin, HIGH);
+		digitalWrite(ploadPin, LOW);
+		delayMicroseconds(pulseWidth);
+		digitalWrite(ploadPin, HIGH);
+		digitalWrite(clockEnablePin, LOW);
+
+		for (int i = 0; i < data; i++){
+			value = digitalRead(dataPin); // ShiftType нафиг тут не нужен - фигачишь обычными uint8_t и ебись оно все конем //DONE
+			result |= (value << ((data - 1) - i));
 			digitalWrite(clockPin, HIGH);
 			delayMicroseconds(pulseWidth);
 			digitalWrite(clockPin, LOW);
 		}
-		Shift[m] = bit;
+		Shift[m] = result;
 		OldShift[m] = Shift[m]; // <-- эмммм... Те сперва кладешь новое значение в буфер, а потом пытаешься его переложить еще и как старое? А зачем? Может ты сперва хотел бы сохранить текущее значение, а потом его обновить?
 	}
 }
@@ -114,8 +115,7 @@ void displayValues(){
 */
 }
 
-void loop()
-{
+void loop(){
 	read();	//Read data
 	checkData(); //Checking data for changes
 	displayValues(); //Send to serial	
