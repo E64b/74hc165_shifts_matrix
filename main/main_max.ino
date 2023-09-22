@@ -1,26 +1,6 @@
 /* =================Unlimited Shifts================= */
 /* ==U can add 1 or more Shifts and read val in serial if val changed== */
 
-
-// ------------------------------------------------------------------------------------------
-// Code style
-// - константы и define принято (в кругах программистов, не ардуинщиков и прочих людей, 
-//   которые решили, что они боги в этом деле) принято 
-//   называть в SCREAMING_SNAKE_CASE - это дает тебе визуальное понимание при чтении кода, 
-//   что это константа
-// - используй говорящие имена СРАЗУ, а не обвешивай комментами
-//   те вместо #define data 8 // Data length of a single chip
-//   используй #define SINGLE_CHIP_DATA_LENGTH 8 
-//   не экономь на буквах - они бесплатные ))
-// - старайся придерживаться одного формата названия переменных, а то у тебя то PascalCase, 
-//   то camelCase, то snake_case - читается плохо
-//   например bool update; 
-//   но почему то сразу uint8_t CurrentShift; // почему формат имени поменялся?
-// - переменные принято называть в camelCase (в подавляющем количестве языков), 
-//   методы/функции все либо PascalCase (стандарт C) либо все camelCase (стандарт явы?)
-// - используй пробелы вместо табов - код будет выглядеть одинаково у всех (holywar, блеать)
-// ------------------------------------------------------------------------------------------
-
 /* ==Number of chips 74hc165== */
 #define shifts 54
 
@@ -56,7 +36,7 @@ void setup(){
 void read(){
 	for (int m = 0; m < shifts; m++){
 		uint8_t CurrentShift = 0;
-
+		//TODO добавить проверку получения не всего сообщения
 		digitalWrite(clockEnablePin, HIGH);
 		digitalWrite(ploadPin, LOW);
 		delayMicroseconds(pulseWidth);
@@ -64,6 +44,7 @@ void read(){
 		digitalWrite(clockEnablePin, LOW);
 
 		for (int i = 0; i < data; i++){
+			//TODO добавить проверку получения < 8 бит
 			uint8_t value = digitalRead(dataPin);
 			CurrentShift |= (value << ((data - 1) - i));
 			digitalWrite(clockPin, HIGH);
