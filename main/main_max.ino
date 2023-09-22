@@ -31,10 +31,10 @@
 #define clockPin 12
 
 /* == Data length of a single chip == */
-#define data 8
+#define SINGLE_CHIP_DATA_LENGTH 8
 
 /* ==Total length of data== */
-#define all_data (data * shifts)
+#define all_data (SINGLE_CHIP_DATA_LENGTH * shifts)
 
 /* ==Pulse length== */
 #define pulseWidth 5
@@ -42,11 +42,11 @@
 bool update; //Flag for updating
 uint8_t CurrentShift; //Current register
 uint8_t Shift[shifts] = {}; //Array for register
-uint8_t OldShift[shifts]= {}; /Old Array
+uint8_t OldShift[shifts]= {}; //Old Array
 
 void setup(){
 	Serial.begin(115200);
-	while (!Serial){	} // <-- тут можно вместо пустого блока просто впидорить ; - эффект тот же
+	while (!Serial);
 	pinMode(ploadPin, OUTPUT); 
 	pinMode(clockEnablePin, OUTPUT);
 	pinMode(dataPin, INPUT);
@@ -54,55 +54,43 @@ void setup(){
 }
 
 /* ==Reading the data stream== */
-void read()
-{
+void read(){
 	digitalWrite(clockEnablePin, HIGH);
 	digitalWrite(ploadPin, LOW);
 	delayMicroseconds(pulseWidth);
 	digitalWrite(ploadPin, HIGH);
 	digitalWrite(clockEnablePin, LOW);
 
-	for (int m = 0; m < shifts; m++)
-	{
-		// <-- нужно определить переменную типа uint8_t тут со значением 0
+	for (int m = 0; m < shifts; m++)	{
+		uint8_t bit = 0; // <-- нужно определить переменную типа uint8_t тут со значением 0 //DONE
 
 		for (int i = 0; i < data; i++)
 		{
-			ShiftType value = digitalRead(dataPin); // ShiftType нафиг тут не нужен - фигачишь обычными uint8_t и ебись оно все конем
-			result |= (value << ((data - 1) - i));
+			bit = digitalRead(dataPin); // ShiftType нафиг тут не нужен - фигачишь обычными uint8_t и ебись оно все конем //DONE
+			result |= (bit << ((data - 1) - i));
 			digitalWrite(clockPin, HIGH);
 			delayMicroseconds(pulseWidth);
 			digitalWrite(clockPin, LOW);
-			return result; // а в какого ты из функции тут выйти хочешь? Зачем, а главное нахуя? )) Убирай эту строку нафиг
 		}
-		Shift[m] = result;
+		Shift[m] = bit;
 		OldShift[m] = Shift[m]; // <-- эмммм... Те сперва кладешь новое значение в буфер, а потом пытаешься его переложить еще и как старое? А зачем? Может ты сперва хотел бы сохранить текущее значение, а потом его обновить?
 	}
 }
 
 /* ==Checking if the array has changed== */
-void checkData()
-{
-	for (int i = 0; i < shifts; i++)
-	{
-		if (OldShift[i] != Shift[i])
-		{
-			update() == true; // <-- эмммм. А ты чего этим хотел сказать? Во-первых, update - это bool, ты не можешь его вызывать
-			// во-вторых, а нахрена ты его сравниваешь с true, да еще и результат никуда не сохраняешь?
-			// в-втретьих, если цель просто найти хотя бы 1 отличие (а по коду так и есть), тогда здесь можно еще и цикл прервать - нафига дальше проверки какие-то делать? Все, уже нашли различия
+void checkData(){
+	for (int i = 0; i < shifts; i++){
+		if (OldShift[i] != Shift[i]){
+			update = true;
+			break;
 		}
 	}
 }
 
-void displayValues()
-{
-	/*If val edit, send array*/
-	if (update() == true) // та же хреномань с попыткой сделать "вывов" bool-евой переменной
-	                      // плюс можно явно не указывать, что скавниваешь с true - это действие по-умолчанию, те просто if (update) - это то же самое, что и if (update == true). Только короче. Тот случай, когда короче - это хорошо
-						  // и еще момент - старайся использовать максимально короткие блоки операций, посмотри пример в конце метода
-	{
-		for (int i = 0; i < shifts; i++)
-		{
+/*If val edit, send array*/
+void displayValues(){	
+	if (update){
+		for (int i = 0; i < shifts; i++){
 		Serial.printl(Shift[i], HEX); //Send current val HEX
 		Serial.print(' ');
 		}
