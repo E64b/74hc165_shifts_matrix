@@ -29,7 +29,8 @@ void setup()
 */
 
 
-void loop(){
+void loop()
+{
 	read();	//Read data
 	checkData(); //Checking data for changes
 	displayValues(); //Send to serial	
