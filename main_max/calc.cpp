@@ -1,4 +1,7 @@
 #include "main.h"
+uint8_t SHIFT[SHIFTS];
+uint8_t OLD_SHIFT[SHIFTS];
+bool update;
 /* ==Reading the data stream== */
 void read()
 {

@@ -1,5 +1,4 @@
 #pragma once
-#pragma pack(1, push)
 
 #include <Arduino.h>
 
@@ -24,5 +23,3 @@ extern uint8_t OLD_SHIFT[SHIFTS]; //Old Array
 void read();
 void checkData();
 void displayValues();
-
-#pragma pack(pop)
