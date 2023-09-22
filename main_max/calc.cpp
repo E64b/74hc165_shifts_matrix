@@ -2,7 +2,7 @@
 /* ==Reading the data stream== */
 void read()
 {
-	for (int m = 0; m < SHIFTS; m++)
+	for (uint16_t m = 0; m < SHIFTS; m++)
 	{
 		uint8_t CurrentShift = 0;
 		//TODO add a check for the arrival of not the entire message
@@ -12,7 +12,7 @@ void read()
 		digitalWrite(ploadPin, HIGH);
 		digitalWrite(clockEnablePin, LOW);
 
-		for (int i = 0; i < SINGLE_CHIP_DATA_LENGTH; i++)
+		for (uint16_t i = 0; i < SINGLE_CHIP_DATA_LENGTH; i++)
 		{
 			//TODO add a bit skip check
 			uint8_t value = digitalRead(dataPin);

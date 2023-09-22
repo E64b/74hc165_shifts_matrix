@@ -2,7 +2,7 @@
 #pragma pack(1, push)
 
 #include <Arduino.h>
-#include <stdio.h>
+
 /* ==Number of chips 74hc165== */
 #define SHIFTS 54
 /* ==pins== */
@@ -13,7 +13,7 @@
 /* == Data length of a single chip == */
 #define SINGLE_CHIP_DATA_LENGTH 8
 /* ==Total length of data== */
-#define all_data (SINGLE_CHIP_DATA_LENGTH * SHIFTS)
+#define ALL_DATA (SINGLE_CHIP_DATA_LENGTH * SHIFTS)
 /* ==Pulse length== */
 #define pulseWidth 5
 

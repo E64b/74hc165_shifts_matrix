@@ -5,29 +5,12 @@
 void setup()
 {
 	Serial.begin(115200);
-	while (!Serial){    
-  }
+	while (!Serial){    }
 	pinMode(ploadPin, OUTPUT);
 	pinMode(clockEnablePin, OUTPUT);
 	pinMode(dataPin, INPUT);
 	pinMode(clockPin, OUTPUT);
 }
-
-/* Тот самый пример
-
-	if (!update) {
-		return;
-	}
-
-	update = false;
-	for (int i = 0; i < shifts; i++)
-	{
-		Serial.printl(Shift[i], HEX); Send current val HEX
-		Serial.print(' ');
-	}
-	Serial.println();
-*/
-
 
 void loop()
 {
