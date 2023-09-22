@@ -56,8 +56,6 @@ void setup(){
 /* ==Reading the data stream== */
 void read(){
 	for (int m = 0; m < shifts; m++){
-
-		lastState = currentState;
 		uint8_t result = 0;
 
 		digitalWrite(clockEnablePin, HIGH);
