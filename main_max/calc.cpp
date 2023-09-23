@@ -13,7 +13,7 @@ void read(){
 		delayMicroseconds(pulseWidth);
 		digitalWrite(ploadPin, HIGH);
 		digitalWrite(clockEnablePin, LOW);
-
+		delay(1);
 		for (uint8_t i = 0; i < SINGLE_CHIP_DATA_LENGTH; i++){
 			uint8_t value = digitalRead(dataPin);
 			CurrentShift |= (value << ((SINGLE_CHIP_DATA_LENGTH - 1) - i));
