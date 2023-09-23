@@ -40,6 +40,7 @@ void checkData(){
 void displayValues(){
 	if (update){
 		for (uint8_t i = 0; i < SHIFTS; i++){
+		/*TODO add output form*/
 			Serial.print(SHIFT[i], HEX); //Send current val HEX
 			Serial.print(' ');
 		}
