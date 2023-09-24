@@ -1,3 +1,4 @@
+#include "GyverCore_uart.h"
 #include "main.h"
 
 uint8_t SHIFT[SHIFTS];
@@ -41,14 +42,15 @@ void checkData(){
 }
 
 /* ==If val edit, send array== */
-void displayValues(){
+void displayValues()
+{
 	if (update){
-		for (uint16_t i = 0; i < SHIFTS; i++){
+		for (byte i = 0; i < SHIFTS; i++){
 		/*TODO add output form*/
-			Serial.print(SHIFT[i], HEX);
+			Serial.print(SHIFT[i], BIN);
 			Serial.print(' ');
 		}
 		Serial.println();
-		update = false;
+		update = false;    
 	}
 }
