@@ -6,26 +6,26 @@ bool update;
 
 /* ==Reading the data stream== */
 void read(){
-	delay(DEAD_TIME);
-	for (uint16_t m = 0; m < SHIFTS; m++){
-		
-		OLD_SHIFT[m] = SHIFT[m];
+	
+	for (uint16_t m = 0; m < SHIFTS; m++)
+	{		
 		uint8_t CurrentShift = 0;
-
+		delay(DEAD_TIME);
 		digitalWrite(clockEnablePin, HIGH);
 		digitalWrite(ploadPin, LOW);
 		delayMicroseconds(pulseWidth);
 		digitalWrite(ploadPin, HIGH);
 		digitalWrite(clockEnablePin, LOW);	
 		
-		for (uint16_t i = 0; i < SINGLE_CHIP_DATA_LENGTH; i++)
+		for (uint16_t i = 0; i < ALL_DATA; i++)
 		{
 			uint8_t value = digitalRead(dataPin);
-			CurrentShift |= (value << ((SINGLE_CHIP_DATA_LENGTH - 1) - i));
+			CurrentShift |= (value << ((ALL_DATA - 1) - i));
 			digitalWrite(clockPin, HIGH);
 			delayMicroseconds(pulseWidth);
 			digitalWrite(clockPin, LOW);
-		}		
+		}	
+		OLD_SHIFT[m] = SHIFT[m];
 		SHIFT[m] = CurrentShift;
 	}
 }
@@ -43,9 +43,9 @@ void checkData(){
 /* ==If val edit, send array== */
 void displayValues(){
 	if (update){
-		for (uint8_t i = 0; i < SHIFTS; i++){
+		for (uint16_t i = 0; i < SHIFTS; i++){
 		/*TODO add output form*/
-			Serial.print(SHIFT[i], BIN);
+			Serial.print(SHIFT[i], HEX);
 			Serial.print(' ');
 		}
 		Serial.println();
