@@ -3,7 +3,7 @@
 #include <Arduino.h>
 
 /* ==Number of chips 74hc165== */
-#define SHIFTS 8 //<<<<<<<<< ×ÈÑËÎ ×ÈÏÎÂ ÎÒ 1 ÄÎ 99
+#define SHIFTS 8 //<<<<<<<<< ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 1 ï¿½ï¿½ 99
 
 /* ==pins== */
 #define ploadPin 8
@@ -18,7 +18,7 @@
 #define ALL_DATA (SINGLE_CHIP_DATA_LENGTH * SHIFTS)
 
 /* ==Pulse length== */
-#define pulseWidth 5
+#define pulseWidth 6
 #define DEAD_TIME 1
 
 extern bool update; //Flag for updating
