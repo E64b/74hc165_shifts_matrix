@@ -26,7 +26,7 @@ void read(){
 			delayMicroseconds(pulseWidth);
 			digitalWrite(clockPin, LOW);
 		}	
-		OLD_SHIFT[m] = SHIFT[m];
+    OLD_SHIFT[m] = SHIFT[m];
 		SHIFT[m] = CurrentShift;
 	}
 }
