@@ -6,16 +6,18 @@ bool update;
 
 /* ==Reading the data stream== */
 void read(){
-	for (uint16_t m = 0; m < SHIFTS; m++)
-	{
-		delay(DEAD_TIME);
+	delay(DEAD_TIME);
+	for (uint16_t m = 0; m < SHIFTS; m++){
+		
 		OLD_SHIFT[m] = SHIFT[m];
 		uint8_t CurrentShift = 0;
+
 		digitalWrite(clockEnablePin, HIGH);
 		digitalWrite(ploadPin, LOW);
 		delayMicroseconds(pulseWidth);
 		digitalWrite(ploadPin, HIGH);
-		digitalWrite(clockEnablePin, LOW);		
+		digitalWrite(clockEnablePin, LOW);	
+		
 		for (uint16_t i = 0; i < SINGLE_CHIP_DATA_LENGTH; i++)
 		{
 			uint8_t value = digitalRead(dataPin);
