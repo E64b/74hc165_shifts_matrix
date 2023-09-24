@@ -1,4 +1,3 @@
-#include "GyverCore_uart.h"
 #include "main.h"
 
 uint8_t SHIFT[SHIFTS];
@@ -26,7 +25,7 @@ void read(){
 			delayMicroseconds(pulseWidth);
 			digitalWrite(clockPin, LOW);
 		}	
-    OLD_SHIFT[m] = SHIFT[m];
+		OLD_SHIFT[m] = SHIFT[m];
 		SHIFT[m] = CurrentShift;
 	}
 }
