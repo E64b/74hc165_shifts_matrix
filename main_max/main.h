@@ -5,9 +5,6 @@
 /* ==Number of chips 74hc165== */
 #define SHIFTS 8 //<<<<<<<<< ×ÈÑËÎ ×ÈÏÎÂ ÎÒ 1 ÄÎ 99
 
-/* ==Output form== */
-#define OUTPUT_FORM HEXADECIMAL //<<<<<<<<<âûâîäèòü â HEXADECIMAL èëè BINARY
-
 /* ==pins== */
 #define ploadPin 8
 #define clockEnablePin 9
@@ -22,6 +19,7 @@
 
 /* ==Pulse length== */
 #define pulseWidth 5
+#define DEAD_TIME 1
 
 extern bool update; //Flag for updating
 extern uint8_t SHIFT[SHIFTS]; //Array for register

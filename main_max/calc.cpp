@@ -6,22 +6,24 @@ bool update;
 
 /* ==Reading the data stream== */
 void read(){
-	for (uint8_t m = 0; m < SHIFTS; m++){
+	for (uint16_t m = 0; m < SHIFTS; m++)
+	{
+		delay(DEAD_TIME);
+		OLD_SHIFT[m] = SHIFT[m];
 		uint8_t CurrentShift = 0;
 		digitalWrite(clockEnablePin, HIGH);
 		digitalWrite(ploadPin, LOW);
 		delayMicroseconds(pulseWidth);
 		digitalWrite(ploadPin, HIGH);
-		digitalWrite(clockEnablePin, LOW);
-		delay(1);
-		for (uint8_t i = 0; i < SINGLE_CHIP_DATA_LENGTH; i++){
+		digitalWrite(clockEnablePin, LOW);		
+		for (uint16_t i = 0; i < SINGLE_CHIP_DATA_LENGTH; i++)
+		{
 			uint8_t value = digitalRead(dataPin);
 			CurrentShift |= (value << ((SINGLE_CHIP_DATA_LENGTH - 1) - i));
 			digitalWrite(clockPin, HIGH);
 			delayMicroseconds(pulseWidth);
 			digitalWrite(clockPin, LOW);
-		}
-		OLD_SHIFT[m] = SHIFT[m];
+		}		
 		SHIFT[m] = CurrentShift;
 	}
 }
@@ -41,8 +43,7 @@ void displayValues(){
 	if (update){
 		for (uint8_t i = 0; i < SHIFTS; i++){
 		/*TODO add output form*/
-			//Serial.print(SHIFT[i], HEX); //Send current val HEX
-			Serial.print(SHIFT[i]); 
+			Serial.print(SHIFT[i], BIN);
 			Serial.print(' ');
 		}
 		Serial.println();
