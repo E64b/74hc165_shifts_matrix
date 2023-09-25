@@ -5,7 +5,7 @@
 void setup(){
 	Serial.begin(115200);
 	while (!Serial){ }
-
+	Serial.println("Serial OK");
 	pinMode(ploadPin, OUTPUT);
 	pinMode(clockEnablePin, OUTPUT);
 	pinMode(dataPin, INPUT);

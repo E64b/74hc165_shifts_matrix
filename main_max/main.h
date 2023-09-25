@@ -3,7 +3,7 @@
 #include <Arduino.h>
 
 /* ==Number of chips 74hc165== */
-#define SHIFTS 8 //<<<<<<<<< ����� ����� �� 1 �� 99
+#define SHIFTS 8
 
 /* ==pins== */
 #define ploadPin 8
