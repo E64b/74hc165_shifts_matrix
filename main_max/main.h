@@ -24,6 +24,6 @@ extern bool update; //Flag for updating
 extern uint8_t SHIFT[SHIFTS]; //Array for register
 extern uint8_t OLD_SHIFT[SHIFTS]; //Old Array
 
-void read ();
-void checkData ();
-void displayValues ();
+void read();
+void checkData();
+void displayValues();
