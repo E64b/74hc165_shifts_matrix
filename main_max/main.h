@@ -18,7 +18,7 @@
 
 /* ==Pulse length== */
 #define pulseWidth 5
-#define DEAD_TIME 10
+#define DEAD_TIME 0
 
 extern bool update; //Flag for updating
 extern uint8_t SHIFT[SHIFTS]; //Array for register
