@@ -2,6 +2,8 @@
 
 #include <Arduino.h>
 
+#define DEVICE_ID 0x30
+
 /* ==Number of chips 74hc165== */
 #define SHIFTS 8
 
@@ -21,9 +23,11 @@
 #define DEAD_TIME 0
 
 extern bool update;               // Flag for updating
-extern uint8_t SHIFT[SHIFTS];     // Array for register
+extern uint8_t *SHIFT;     // Array for register
 extern uint8_t OLD_SHIFT[SHIFTS]; // Old Array
 
 void read();
 void checkData();
 void displayValues();
+void sendValues();
+void initSendBuffer();

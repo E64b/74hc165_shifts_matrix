@@ -10,10 +10,13 @@ void setup() {
   pinMode(ploadPin, OUTPUT);
   pinMode(dataPin, INPUT);
   pinMode(clockPin, OUTPUT);
+
+  initSendBuffer();
 }
 
 void loop() {
   read();          // Read data
   checkData();     // Checking data for changes
-  displayValues(); // Send to serial
+  //displayValues(); // Send to serial
+  sendValues();
 }
