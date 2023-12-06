@@ -17,6 +17,8 @@ void setup() {
 void loop() {
   read();          // Read data
   checkData();     // Checking data for changes
-  //displayValues(); // Send to serial
+  displayValues(); // Send to serial
   sendValues();
+  Serial_In();
+  Serial_Out();
 }
