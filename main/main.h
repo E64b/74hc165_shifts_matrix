@@ -3,6 +3,11 @@
 #include <Arduino.h>
 #include <inttypes.h>
 #include <stdio.h>
+#include <SoftwareSerial.h>
+
+#define TX 5
+#define RX 6
+#define BUFF_S 256
 
 #define DEBUG 0 // Init DEBUG mode
 
@@ -25,10 +30,7 @@
 
 /* ==Pulse length== */
 #define pulseWidth 5
-#define DEAD_TIME 0
-
-
-  
+#define DEAD_TIME 0  
 
 struct MessageHeader {
   uint16_t magic;
@@ -125,7 +127,9 @@ void sendValues();
 void initSendBuffer();
 void Serial_In();
 void Serial_Out();
+void softSer();
 
+extern SoftwareSerial softSerial;
 extern uint8_t sendBuffer[7 + SHIFTS];
 extern uint8_t *SHIFT;
 extern uint8_t OLD_SHIFT[SHIFTS];
