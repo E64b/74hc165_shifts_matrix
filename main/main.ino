@@ -7,9 +7,8 @@ SoftwareSerial softSerial(RX, TX);
 void setup() {
   Serial.begin(115200);
   softSerial.begin(115200);
-  while (!Serial) {
-  }
-  Serial.println("Serial OK");
+  while (!Serial) { }
+  //Serial.println("Serial OK");
   pinMode(RX, INPUT);
   pinMode(TX, OUTPUT);
   pinMode(ploadPin, OUTPUT);

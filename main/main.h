@@ -14,7 +14,7 @@
 #define DEVICE_ID 0x30
 
 /* ==Number of chips 74hc165== */
-#define SHIFTS 8
+#define SHIFTS 54
 
 /* ==pins== */
 #define ploadPin 8

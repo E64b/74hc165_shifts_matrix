@@ -97,7 +97,7 @@ void Serial_In() {
           str += hsId + ":" + String(DEVICE_ID, HEX) + ":1:" + FEATURE_ID;
           str += ">>";
           Serial.print(str);
-          Serial.print("<<00b154:20:1:wall-screen>>");
+          Serial.print(String("<<") + hsId + String(":20:1:wall-screen>>"));
         }
       }
       hsState = STATE_HS_UNKNOWN;
