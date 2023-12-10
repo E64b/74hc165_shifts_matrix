@@ -4,23 +4,9 @@
 
 SoftwareSerial softSerial(RX, TX);
 
-uint16_t buff_i = 0;
-uint8_t buffer[BUFF_S];
-
-void softSer() {
-  while (softSerial.available() > 0) {
-    char val = softSerial.read();
-    buffer[buff_i++] = val;
-  }
-  if (buff_i != 0) {
-    Serial.write(buffer, sizeof(buffer));
-    buff_i = 0;
-  }
-}
-
 void setup() {
   Serial.begin(115200);
-  softSerial.begin(115200);  
+  softSerial.begin(115200);
   while (!Serial) {
   }
   Serial.println("Serial OK");
@@ -37,8 +23,8 @@ void loop() {
   softSer();
   read();
   checkData();
-  //displayValues();
+  displayValues();
   sendValues();
   Serial_In();
-  //Serial_Out();
+  Serial_Out();
 }

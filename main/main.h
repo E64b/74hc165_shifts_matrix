@@ -1,13 +1,12 @@
 #pragma once
 
 #include <Arduino.h>
+#include <SoftwareSerial.h>
 #include <inttypes.h>
 #include <stdio.h>
-#include <SoftwareSerial.h>
 
 #define TX 5
 #define RX 6
-#define BUFF_S 256
 
 #define DEBUG 0 // Init DEBUG mode
 
@@ -30,7 +29,7 @@
 
 /* ==Pulse length== */
 #define pulseWidth 5
-#define DEAD_TIME 0  
+#define DEAD_TIME 0
 
 struct MessageHeader {
   uint16_t magic;
@@ -71,6 +70,7 @@ struct MessageAPI {
     }
     return crc;
   }
+
   void Send() {
     MakeValid();
     Serial.write((uint8_t *)this, GetSize());
@@ -135,7 +135,6 @@ extern uint8_t *SHIFT;
 extern uint8_t OLD_SHIFT[SHIFTS];
 extern bool update;
 extern bool pong;
-
 
 typedef EmptyMessage PongMessage;
 
