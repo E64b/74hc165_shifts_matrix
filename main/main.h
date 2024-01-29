@@ -5,8 +5,8 @@
 #include <inttypes.h>
 #include <stdio.h>
 
-#define TX 5
-#define RX 6
+#define TX 25
+#define RX 26
 
 #define DEBUG 0 // Init DEBUG mode
 
@@ -17,9 +17,9 @@
 #define SHIFTS 54
 
 /* ==pins== */
-#define ploadPin 8
-#define dataPin 11
-#define clockPin 12
+#define ploadPin 23
+#define dataPin 22
+#define clockPin 21
 
 /* == Data length of a single chip == */
 #define SINGLE_CHIP_DATA_LENGTH 8
